@@ -66,6 +66,9 @@ export class NoteRepository {
       return gl.sync(`*${fileExtension}`, { cwd: noteFolderLocation, nodir: true, nocase: true }).map(listOfNotes);
     });
 
+    // Sort notes by name
+    notes.sort((a, b) => a.name.localeCompare(b.name));
+
     return notes;
   }
 
