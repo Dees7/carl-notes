@@ -194,17 +194,17 @@
 				"cnotes.allowedFileExtensions": {
 					"type": "array",
 					"default": [
-						"md",
-						"ts",
-						"js",
-						"log",
-						"txt",
-						"sql",
-						"json",
-						"jsonc",
-						"yaml"
+						".md",
+						".ts",
+						".js",
+						".log",
+						".txt",
+						".sql",
+						".json",
+						".jsonc",
+						".yaml"
 					],
-					"description": "Allowed file extension to be displayed"
+					"description": "Allowed file extension to be displayed. user \"\" to allow all"
 				}
 			}
 		}

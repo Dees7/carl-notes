@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as gl from 'glob';
 import * as fs from 'fs';
 
-import { config, getNoteFolderLocations, getDefaultFileExtension, getAllowedFileExtensions } from '../configuration';
+import { config, getNoteFolderLocations, getAllowedFileExtensions } from '../configuration';
 import { NoteFolderProvider } from '../providers/noteFolder.provider';
 import { NoteFolderRepository } from './noteFolder.repository';
 import { NoteFolder } from '../models/noteFolder';
@@ -13,7 +13,6 @@ import { Note } from '../models/note';
 import logger from '../logger';
 
 const unlinkAsync = promisify(fs.unlink);
-const fileExtensionRegex = /(\..{2,8}$)/gm;
 
 export class NoteRepository {
   constructor(public settings: vscode.WorkspaceConfiguration) {
@@ -64,7 +63,7 @@ export class NoteRepository {
     };
 
     const notes = getAllowedFileExtensions().flatMap(fileExtension => {
-      return gl.sync(`*.${fileExtension}`, { cwd: noteFolderLocation, nodir: true, nocase: true }).map(listOfNotes);
+      return gl.sync(`*${fileExtension}`, { cwd: noteFolderLocation, nodir: true, nocase: true }).map(listOfNotes);
     });
 
     return notes;
@@ -92,8 +91,7 @@ export class NoteRepository {
     if (!noteName) return;
 
     const noteFolderLocation = noteFolder.location;
-    const hasExtension = noteName.match(fileExtensionRegex);
-    const fileName = hasExtension ? noteName : `${noteName}.${getDefaultFileExtension()}`;
+    const fileName = noteName;
     const filePath: string = path.join(noteFolderLocation, `${fileName.replace(/\:/gi, '')}`);
 
     const noteExists = fs.existsSync(filePath);
