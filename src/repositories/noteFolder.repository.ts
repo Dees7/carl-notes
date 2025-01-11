@@ -67,7 +67,7 @@ export class NoteFolderRepository {
 
       const notes = NoteRepository.getNotes(noteFolderLocation);
 
-      return new NoteFolder(path.basename(noteFolderLocation), noteFolderLocation, vscode.TreeItemCollapsibleState.Collapsed, notes);
+      return new NoteFolder(path.basename(noteFolderLocation), noteFolderLocation, vscode.TreeItemCollapsibleState.Expanded, notes);
     });
   }
 
